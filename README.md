@@ -14,7 +14,7 @@
 
 ## Usage: HFS+J
 
-### 1- Type 1 Select Disk Utility to continue and formate the Destination Drive MacOS Extended Journaled /GUID
+### 1- Type 2 Select Disk Utility to continue and formate the Destination Drive MacOS Extended Journaled /GUID
  
 ### 2- On Diskutil list menue: Type the number of the volumes Source Follow by Enter: Exemple/ "disk6s2" without the quotation marks
  
@@ -24,7 +24,7 @@
 
 ![Modular Image Creation](https://i62.servimg.com/u/f62/18/50/18/69/2captu14.png)
 
-### [Download ➤ Clone SSD macOS High Sierra.zip]()
+### [Download ➤ Clone SSD macOS High Sierra.zip](https://github.com/chris1111/Clone-SSD-macOS-High-Sierra/releases/tag/V1)
 
 ###  Follow every steps in the Video (French video)
 
