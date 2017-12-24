@@ -1,0 +1,246 @@
+#!/bin/sh
+defaults write com.apple.terminal "Default Window Settings" "Pro"
+defaults write com.apple.terminal "Startup Window Settings" "Pro"                                        
+printf '\e[8;39;81t'
+# script Clone SSD macOS High Sierra
+# Copyright chris1111 http://hackintosh-montreal.com
+# Vars
+apptitle="Clone SSD macOS High Sierra"
+version="1.0"
+# Set Icon directory and file 
+iconfile="/System/Library/CoreServices/Installer.app/Contents/Resources/Installer.icns"
+osascript -e 'display notification "Clone SSD macOS High Sierra" with title "Starting"  sound name "default"'
+nameh=`users`
+function echob() {
+  echo "`tput bold`$1`tput sgr0`"
+}
+function head
+{
+clear
+echo "                          `tput setaf 7``tput sgr0``tput bold``tput setaf 10`© Copyright 2017 chris1111`tput sgr0` `tput setaf 7``tput sgr0`"
+echo "               =================================================== "
+echo "   
+                         `tput setaf 7``tput sgr0``tput bold``tput setaf 10` \033[5mClone SSD macOS High Sierra`tput sgr0` `tput setaf 7``tput sgr0` 
+ "
+}
+function menu
+{
+echo "                                Welcome "`tput setaf 7``tput sgr0``tput bold``tput setaf 10`$nameh`tput sgr0` `tput setaf 7``tput sgr0`" "
+echo "               =================================================== "
+                                                                  
+echo "                             
+                                      `tput setaf 7``tput sgr0``tput bold``tput setaf 10` \033[5m⥥`tput sgr0` `tput setaf 7``tput sgr0`"
+echo "               `tput setaf 26`=================================================== "
+echo "                     ✅  1 = ➖ `tput setaf 26`Clone SSD - APFS"
+echo "               =================================================== "
+
+echo "                     ✅  2 = ➖ `tput setaf 26`Clone SSD - HFS+J"
+echo "               =================================================== "
+
+echo "                     ❎  X = ➖ `tput setaf 26`Quit (Exit)" 
+echo "               =================================================== "
+
+echo " "
+
+
+echo "               =================================================== "
+read -n 1 option
+}
+function CLONEAPFS
+{
+head
+echo " "
+echo "Clone SSD APFS"
+response=$(osascript -e 'tell app "System Events" to display dialog "
+Welcome Clone SSD for APFS
+This program allows you to Clone a source volumes to the destination volumes.
+
+
+Select Disk Utility to continue
+Cancel to exit." with icon file "System:Library:CoreServices:CoreTypes.bundle:Contents:Resources:FinderIcon.icns" buttons {"Cancel", "Disk Utility"} default button 2 with title "Clone SSD macOS High Sierra" ')
+
+answer=$(echo $response | grep "Disk Utility")
+
+# Cancel is user does not select Disk Utility
+if [ ! "$answer" ] ; then
+  osascript -e 'display notification "Program closing" with title "'"$apptitle"'" subtitle "User cancelled"'
+  exit 0
+fi
+
+
+# Open Utilitaire de Disque
+  imagepath=`/usr/bin/osascript << EOT
+    tell application "/Applications/Utilities/Disk Utility.app"	activateend tellrepeat	if application "Disk Utility" is not running then exit repeat	end repeat`
+
+# Select Source
+diskutil list
+
+#get CODE Installer path
+if [ "$2" == "" ]; then
+
+echo "Please type the number of the volumes Source (Apple_APFS Container) "
+echo "Follow by Enter: "
+echo " "
+while [ -z "$CODE1" ]; do
+read CODE1
+done
+
+else
+CODE1="$2"
+fi
+
+echo " "
+echo " "
+
+#get CODE Installer path
+if [ "$2" == "" ]; then
+
+echo "Please type the number of the volumes Destination "
+echo "Follow by Enter: "
+echo " "
+while [ -z "$CODE" ]; do
+read CODE
+done
+
+else
+CODE="$2"
+fi
+
+echo " "
+echo " "
+echo "Type your password Follow by Enter: " 
+sudo asr restore -source /dev/"$CODE1" -target /dev/"$CODE" -erase -verbose -noverify
+
+echo "Clone APFS Completed: "
+echo "***********************************************************  "
+echo " "
+echo "To clone another volume, you must
+Quit and restart the program! "
+echo "***********************************************************  "
+
+echo " "
+echo " "
+echo " "
+}
+function CLONEHFS
+{
+head
+echo " "
+echo "Clone SSD HFS+J"
+response=$(osascript -e 'tell app "System Events" to display dialog "
+Welcome Clone SSD for HFS+J
+This program allows you to Clone a source volumes to the destination volumes.
+
+
+Select Disk Utility to continue
+Cancel to exit." with icon file "System:Library:CoreServices:CoreTypes.bundle:Contents:Resources:FinderIcon.icns" buttons {"Cancel", "Disk Utility"} default button 2 with title "Clone SSD macOS High Sierra" ')
+
+answer=$(echo $response | grep "Disk Utility")
+
+# Cancel is user does not select Disk Utility
+if [ ! "$answer" ] ; then
+  osascript -e 'display notification "Program closing" with title "'"$apptitle"'" subtitle "User cancelled"'
+  exit 0
+fi
+
+
+# Open Utilitaire de Disque
+  imagepath=`/usr/bin/osascript << EOT
+    tell application "/Applications/Utilities/Disk Utility.app"	activateend tellrepeat	if application "Disk Utility" is not running then exit repeat	end repeat`
+
+# Select Source
+diskutil list
+
+#get CODE Installer path
+if [ "$2" == "" ]; then
+
+echo "Please type the number of the volumes Source (HFS+J) "
+echo "Follow by Enter: "
+echo " "
+while [ -z "$CODE1" ]; do
+read CODE1
+done
+
+else
+CODE1="$2"
+fi
+
+echo " "
+echo " "
+
+#get CODE Installer path
+if [ "$2" == "" ]; then
+
+echo "Please type the number of the volumes Destination "
+echo "Follow by Enter: "
+echo " "
+while [ -z "$CODE" ]; do
+read CODE
+done
+
+else
+CODE="$2"
+fi
+
+echo " "
+echo " "
+echo "Type your password Follow by Enter: "
+sudo asr restore -source /dev/"$CODE1" -target /dev/"$CODE" -erase -verbose -noverify
+
+echo "Clone HFS+J Completed: "
+echo "***********************************************************  "
+echo " "
+echo "To clone another volume, you must
+Quit and restart the program! "
+echo "***********************************************************  "
+
+
+
+echo " "
+echo " "
+echo " "
+}
+function Quit
+{
+clear
+echo " " 
+echo "
+Quit Clone SSD macOS High Sierra..."
+osascript -e 'tell app "terminal" to display dialog "Thanks to using Clone SSD macOS High Sierra" with icon file "System:Library:CoreServices:loginwindow.app:Contents:Resources:ShutDown.tiff" buttons {"EXIT"} default button 1 with title "Clone SSD macOS High Sierra"'
+osascript -e 'display notification "Clone SSD macOS High Sierra" with title "Closing"  sound name "default"'
+
+echo " " 
+echob "Thanks`tput setaf 7``tput sgr0``tput bold``tput setaf 10` $hours $nameh`tput sgr0` `tput setaf 7``tput sgr0`"
+echo " " 
+exit 0
+}
+while [ 1 ]
+do
+head
+menu
+case $option in
+
+1|1)
+echo
+CLONEAPFS ;;
+2|2)
+echo
+CLONEHFS ;;
+x|X)
+echo
+Quit ;;
+
+
+*)
+echo ""
+esac
+echo
+echob "`tput setaf 7``tput sgr0``tput bold``tput setaf 10`Type any key to return menue`tput sgr0` `tput setaf 7``tput sgr0`"
+echo
+read -n 1 line
+clear
+done
+
+exit
+
+
