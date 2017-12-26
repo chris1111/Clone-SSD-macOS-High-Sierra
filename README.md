@@ -28,5 +28,5 @@
 
 ###  Follow every steps in the Video (French video)
 
-[![Modular Image Creation](https://i62.servimg.com/u/f62/18/50/18/69/ssd-dr11.png)](https://youtu.be/r5xKEwDn_1o)
+[![Modular Image Creation](https://i62.servimg.com/u/f62/18/50/18/69/6710.png)](https://youtu.be/r5xKEwDn_1o)
 
