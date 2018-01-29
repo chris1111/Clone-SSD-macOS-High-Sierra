@@ -4,7 +4,7 @@
 
 ### Working for HFS+J, APFS
 
-## Usage: APFS
+### Usage: APFS
 
 ### 1- Type 1 Select Disk Utility to continue and formate the Destination Drive MacOS Extended Journaled /GUID
  
@@ -12,7 +12,7 @@
  
 ### 3-  type the number of the volumes Destination Follow by Enter: Exemple/ "disk5s2" without the quotation marks
 
-## Usage: HFS+J
+### Usage: HFS+J
 
 ### 1- Type 2 Select Disk Utility to continue and formate the Destination Drive MacOS Extended Journaled /GUID
  
